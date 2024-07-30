@@ -20,6 +20,9 @@ public interface ICoinStrategy {
         int xaxisCurrentPosition = Character.getNumericValue(position.charAt(0)) - 9;
         int yaxisCurrentPosition = Character.getNumericValue(position.charAt(1));
         List<String> coinMoves = new ArrayList<>();
+        if (yaxisCurrentPosition < MIN_CHESS_BOX_LIMIT || yaxisCurrentPosition > MAX_CHESS_BOX_LIMIT || xaxisCurrentPosition < MIN_CHESS_BOX_LIMIT || xaxisCurrentPosition > MAX_CHESS_BOX_LIMIT) {
+            return coinMoves;
+        }
         coinCapability().forEach((direction, maxMove) -> {
             int counter = 0;
             switch (direction) {
