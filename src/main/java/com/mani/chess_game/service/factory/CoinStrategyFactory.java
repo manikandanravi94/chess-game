@@ -1,10 +1,7 @@
 package com.mani.chess_game.service.factory;
 
 import com.mani.chess_game.model.Coin;
-import com.mani.chess_game.service.strategy.ICoinStrategy;
-import com.mani.chess_game.service.strategy.KingCoinStrategy;
-import com.mani.chess_game.service.strategy.PawnCoinStrategy;
-import com.mani.chess_game.service.strategy.QueenCoinStrategy;
+import com.mani.chess_game.service.strategy.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,11 +14,14 @@ public class CoinStrategyFactory {
 
     private final QueenCoinStrategy queenCoinStrategy;
 
+    private final RookCoinStrategy rookCoinStrategy;
+
     @Autowired
-    public CoinStrategyFactory(KingCoinStrategy kingCoinStrategy, PawnCoinStrategy pawnCoinStrategy, QueenCoinStrategy queenCoinStrategy) {
+    public CoinStrategyFactory(KingCoinStrategy kingCoinStrategy, PawnCoinStrategy pawnCoinStrategy, QueenCoinStrategy queenCoinStrategy, RookCoinStrategy rookCoinStrategy) {
         this.kingCoinStrategy = kingCoinStrategy;
         this.pawnCoinStrategy = pawnCoinStrategy;
         this.queenCoinStrategy = queenCoinStrategy;
+        this.rookCoinStrategy = rookCoinStrategy;
     }
 
     public ICoinStrategy getStrategy(Coin coin) {
@@ -34,6 +34,9 @@ public class CoinStrategyFactory {
             }
             case QUEEN -> {
                 return queenCoinStrategy;
+            }
+            case ROOK -> {
+                return rookCoinStrategy;
             }
             default -> throw new IllegalArgumentException("invalid input");
         }

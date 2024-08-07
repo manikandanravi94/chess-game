@@ -20,6 +20,7 @@ public class QueenCoinStrategy implements ICoinStrategy {
         QUEEN_COIN_CAPABILITY.put(CoinDirection.FORWARDLEFTDIAGONAL, 7);
         QUEEN_COIN_CAPABILITY.put(CoinDirection.BACKWARDRIGHTDIAGONAL, 7);
         QUEEN_COIN_CAPABILITY.put(CoinDirection.BACKWARDLEFTDIAGONAL, 7);
+        ICoinStrategy.BLACK_COIN_MAP.put("E4","E4");
     }
 
     @Override

@@ -3,6 +3,7 @@ package com.mani.chess_game.service.strategy;
 import com.mani.chess_game.model.CoinDirection;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -14,7 +15,13 @@ public interface ICoinStrategy {
 
     int MIN_CHESS_BOX_LIMIT = 1;
 
+    Map<String, String> whiteCoinMap = new HashMap<>();
+
+    static Map<String, String> BLACK_COIN_MAP = new HashMap<>();
+
     Map<CoinDirection, Integer> coinCapability();
+
+
     //A5
 
     default List<String> nextPossibleMoves(String position) {
@@ -31,6 +38,7 @@ public interface ICoinStrategy {
                     for (int i = yaxisCurrentPosition; i < MAX_CHESS_BOX_LIMIT; i++) {
                         counter = counter + 1;
                         String move = xCharMap.get(xaxisCurrentPosition) + (i + 1);
+                        if (checkOppositeCoinPresence(coinMoves, move)) break;
                         coinMoves.add(move);
                         if (counter == maxMove) {
                             break;
@@ -41,6 +49,7 @@ public interface ICoinStrategy {
                     for (int i = yaxisCurrentPosition; i > MIN_CHESS_BOX_LIMIT; i--) {
                         counter = counter + 1;
                         String move = xCharMap.get(xaxisCurrentPosition) + (i - 1);
+                        if (checkOppositeCoinPresence(coinMoves, move)) break;
                         coinMoves.add(move);
                         if (counter == maxMove) {
                             break;
@@ -51,6 +60,7 @@ public interface ICoinStrategy {
                     for (int i = xaxisCurrentPosition + 1; i <= MAX_CHESS_BOX_LIMIT; i++) {
                         counter = counter + 1;
                         String move = xCharMap.get(i) + yaxisCurrentPosition;
+                        if (checkOppositeCoinPresence(coinMoves, move)) break;
                         coinMoves.add(move);
                         if (counter == maxMove) {
                             break;
@@ -61,6 +71,7 @@ public interface ICoinStrategy {
                     for (int i = xaxisCurrentPosition - 1; i >= MIN_CHESS_BOX_LIMIT; i--) {
                         counter = counter + 1;
                         String move = xCharMap.get(i) + yaxisCurrentPosition;
+                        if (checkOppositeCoinPresence(coinMoves, move)) break;
                         coinMoves.add(move);
                         if (counter == maxMove) {
                             break;
@@ -125,11 +136,20 @@ public interface ICoinStrategy {
                 break;
             }
             String move = xCharMap.get(i) + derivedYAxis;
+            if (checkOppositeCoinPresence(coinMoves, move)) break;
             coinMoves.add(move);
             if (counter >= yaxisCurrentPosition || counter >= maxMove) {
                 break;
             }
 
         }
+    }
+
+    private static boolean checkOppositeCoinPresence(List<String> coinMoves, String move) {
+        if(BLACK_COIN_MAP.containsKey(move)){
+            coinMoves.add(move);
+            return true;
+        }
+        return false;
     }
 }
