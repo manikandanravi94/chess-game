@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class CoinstrategyFactory {
+public class CoinStrategyFactory {
 
     private final KingCoinStrategy kingCoinStrategy;
 
@@ -18,26 +18,19 @@ public class CoinstrategyFactory {
     private final QueenCoinStrategy queenCoinStrategy;
 
     @Autowired
-    public CoinstrategyFactory(KingCoinStrategy kingCoinStrategy, PawnCoinStrategy pawnCoinStrategy, QueenCoinStrategy queenCoinStrategy) {
+    public CoinStrategyFactory(KingCoinStrategy kingCoinStrategy, PawnCoinStrategy pawnCoinStrategy, QueenCoinStrategy queenCoinStrategy) {
         this.kingCoinStrategy = kingCoinStrategy;
         this.pawnCoinStrategy = pawnCoinStrategy;
         this.queenCoinStrategy = queenCoinStrategy;
     }
 
     public ICoinStrategy getStrategy(Coin coin) {
+        ICoinStrategy iCoinStrategy = null;
         switch (coin) {
-            case KING -> {
-                return kingCoinStrategy;
-            }
-            case PAWN -> {
-                return pawnCoinStrategy;
-            }
-            case QUEEN -> {
-                return queenCoinStrategy;
-            }
-            default -> {
-                return null;
-            }
+            case KING -> iCoinStrategy = kingCoinStrategy;
+            case PAWN -> iCoinStrategy = pawnCoinStrategy;
+            case QUEEN -> iCoinStrategy = queenCoinStrategy;
         }
+        return iCoinStrategy;
     }
 }

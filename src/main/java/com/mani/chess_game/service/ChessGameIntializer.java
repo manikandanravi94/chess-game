@@ -1,7 +1,7 @@
 package com.mani.chess_game.service;
 
 import com.mani.chess_game.model.Coin;
-import com.mani.chess_game.service.factory.CoinstrategyFactory;
+import com.mani.chess_game.service.factory.CoinStrategyFactory;
 import com.mani.chess_game.service.strategy.ICoinStrategy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
@@ -15,12 +15,12 @@ import java.util.Scanner;
 public class ChessGameIntializer implements ApplicationRunner {
 
 
-    private final CoinstrategyFactory coinstrategyFactory;
+    private final CoinStrategyFactory coinstrategyFactory;
 
     private final ChessBoardService chessBoardService;
 
     @Autowired
-    public ChessGameIntializer(CoinstrategyFactory coinstrategyFactory, ChessBoardService chessBoardService) {
+    public ChessGameIntializer(CoinStrategyFactory coinstrategyFactory, ChessBoardService chessBoardService) {
         this.coinstrategyFactory = coinstrategyFactory;
         this.chessBoardService = chessBoardService;
     }
@@ -49,7 +49,7 @@ public class ChessGameIntializer implements ApplicationRunner {
                 List<String> possibleMoves = chessBoardService.nextPossibleMoves(position);
                 System.out.println(possibleMoves);
             } catch (Exception e) {
-                System.out.println("Unknow coin type provided please provide valid type mentioned in the list");
+                System.out.println("invalid Input");
                 continue;
             }
 

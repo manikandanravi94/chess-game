@@ -15,13 +15,14 @@ public interface ICoinStrategy {
     int MIN_CHESS_BOX_LIMIT = 1;
 
     Map<CoinDirection, Integer> coinCapability();
+    //A5
 
     default List<String> nextPossibleMoves(String position) {
         int xaxisCurrentPosition = Character.getNumericValue(position.charAt(0)) - 9;
         int yaxisCurrentPosition = Character.getNumericValue(position.charAt(1));
         List<String> coinMoves = new ArrayList<>();
         if (yaxisCurrentPosition < MIN_CHESS_BOX_LIMIT || yaxisCurrentPosition > MAX_CHESS_BOX_LIMIT || xaxisCurrentPosition < MIN_CHESS_BOX_LIMIT || xaxisCurrentPosition > MAX_CHESS_BOX_LIMIT) {
-            return coinMoves;
+            throw new IllegalArgumentException("Not a valid position");
         }
         coinCapability().forEach((direction, maxMove) -> {
             int counter = 0;
@@ -66,21 +67,8 @@ public interface ICoinStrategy {
                         }
                     }
                 }
-                case BACKWARDRIGHTDIAGONAL -> {
-                    for (int i = xaxisCurrentPosition + 1; i <= MAX_CHESS_BOX_LIMIT; i++) {
-                        counter = counter + 1;
-                        int derivedYAxis = (yaxisCurrentPosition - counter);
-                        if (derivedYAxis <= 0 || derivedYAxis > 8) {
-                            break;
-                        }
-                        String move = xCharMap.get(i) + derivedYAxis;
-                        coinMoves.add(move);
-                        if (counter >= (yaxisCurrentPosition) || counter >= maxMove) {
-                            break;
-                        }
-
-                    }
-                }
+                case BACKWARDRIGHTDIAGONAL ->
+                        backwardRightPossibleMoves(xaxisCurrentPosition, yaxisCurrentPosition, coinMoves, maxMove, counter);
                 case BACKWARDLEFTDIAGONAL -> {
                     for (int i = xaxisCurrentPosition - 1; i >= MIN_CHESS_BOX_LIMIT; i--) {
                         counter = counter + 1;
@@ -108,7 +96,6 @@ public interface ICoinStrategy {
                         if (counter > (maxMove - yaxisCurrentPosition) + 1 || counter >= maxMove) {
                             break;
                         }
-
                     }
                 }
                 case FORWARDLEFTDIAGONAL -> {
@@ -128,5 +115,21 @@ public interface ICoinStrategy {
             }
         });
         return coinMoves;
+    }
+
+    private static void backwardRightPossibleMoves(int xaxisCurrentPosition, int yaxisCurrentPosition, List<String> coinMoves, Integer maxMove, int counter) {
+        for (int i = xaxisCurrentPosition + 1; i <= MAX_CHESS_BOX_LIMIT; i++) {
+            counter = counter + 1;
+            int derivedYAxis = (yaxisCurrentPosition - counter);
+            if (derivedYAxis <= 0 || derivedYAxis > 8) {
+                break;
+            }
+            String move = xCharMap.get(i) + derivedYAxis;
+            coinMoves.add(move);
+            if (counter >= yaxisCurrentPosition || counter >= maxMove) {
+                break;
+            }
+
+        }
     }
 }

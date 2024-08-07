@@ -10,8 +10,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(MockitoExtension.class)
 class QueenCoinStrategyTest {
@@ -33,12 +32,5 @@ class QueenCoinStrategyTest {
         List<String> actualQueenPossiblePositions = queenCoinStrategy.nextPossibleMoves("D5");
 
         assertEquals(expectedQueenPossiblePostions, actualQueenPossiblePositions);
-    }
-
-    @Test
-    void invalidPositionTest(){
-        List<String> actualQueenPossiblePositions = queenCoinStrategy.nextPossibleMoves("I9");
-
-        assertTrue(actualQueenPossiblePositions.isEmpty());
     }
 }

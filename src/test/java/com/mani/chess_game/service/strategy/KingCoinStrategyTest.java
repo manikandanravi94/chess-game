@@ -17,11 +17,21 @@ class KingCoinStrategyTest {
     private KingCoinStrategy kingCoinStrategy;
 
     @Test
-    void kingCoinCapabilityTest() {
+    void kingCoinCapabilitySizeTest() {
         int expectedKingCoinCapability = 8;
 
         Map<CoinDirection, Integer> actualKingCoinCapabilityMap = kingCoinStrategy.coinCapability();
 
         assertEquals(expectedKingCoinCapability, actualKingCoinCapabilityMap.size());
+    }
+
+    //TODO below test can be extended for all other directions in all coins
+    @Test
+    void kingCoinCapabilityMaxMoveTest() {
+        int expectedKingCoinForwardMoveCapability = 1;
+
+        Map<CoinDirection, Integer> actualKingCoinCapabilityMap = kingCoinStrategy.coinCapability();
+
+        assertEquals(expectedKingCoinForwardMoveCapability, actualKingCoinCapabilityMap.get(CoinDirection.FORWARD));
     }
 }
