@@ -25,12 +25,17 @@ public class CoinStrategyFactory {
     }
 
     public ICoinStrategy getStrategy(Coin coin) {
-        ICoinStrategy iCoinStrategy = null;
         switch (coin) {
-            case KING -> iCoinStrategy = kingCoinStrategy;
-            case PAWN -> iCoinStrategy = pawnCoinStrategy;
-            case QUEEN -> iCoinStrategy = queenCoinStrategy;
+            case KING -> {
+                return kingCoinStrategy;
+            }
+            case PAWN -> {
+                return pawnCoinStrategy;
+            }
+            case QUEEN -> {
+                return queenCoinStrategy;
+            }
+            default -> throw new IllegalArgumentException("invalid input");
         }
-        return iCoinStrategy;
     }
 }

@@ -15,13 +15,13 @@ import java.util.Scanner;
 public class ChessGameIntializer implements ApplicationRunner {
 
 
-    private final CoinStrategyFactory coinstrategyFactory;
+    private final CoinStrategyFactory coinStrategyFactory;
 
     private final ChessBoardService chessBoardService;
 
     @Autowired
     public ChessGameIntializer(CoinStrategyFactory coinstrategyFactory, ChessBoardService chessBoardService) {
-        this.coinstrategyFactory = coinstrategyFactory;
+        this.coinStrategyFactory = coinstrategyFactory;
         this.chessBoardService = chessBoardService;
     }
 
@@ -38,10 +38,7 @@ public class ChessGameIntializer implements ApplicationRunner {
             }
             try {
                 Coin coinInput = Coin.valueOf(inputScanner.next());
-                ICoinStrategy coinStrategy = coinstrategyFactory.getStrategy(coinInput);
-                if (coinStrategy == null) {
-                    continue;
-                }
+                ICoinStrategy coinStrategy = coinStrategyFactory.getStrategy(coinInput);
                 System.out.println(coinInput);
                 System.out.println("Please enter position for the coin");
                 String position = inputScanner.next();
